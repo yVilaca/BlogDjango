@@ -1,20 +1,14 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lista de Posts</title>
-  </head>
-  <body>
-    <h1>Lista de Posts</h1>
-    <ul>
-      {% for post in posts %}
-      <li style="max-width:500px;">
-        <div><b>Nome:</b> {{post.title}}</div>
-        <div><b>Conteudo:</b> {{post.text|linebreaksbr}}</div>
-        <p>Publicado em: {{post.published_date}}</p>
-      </li>
-      {% endfor %}
-    </ul>
-  </body>
-</html>
+{% extends 'blog/base.html' %}
+
+{% block content %}
+  {% for post in posts %}
+    <li style="max-width: 500px">
+      <p>Postado por: {{ post.author }}</p>
+      <h3><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h3>
+      <div>
+        <b>Conteudo:</b> {{ post.text|linebreaksbr }}
+      </div>
+      <p class="data">Publicado em: {{ post.published_date }}</p>
+    </li>
+  {% endfor %}
+{% endblock %}
